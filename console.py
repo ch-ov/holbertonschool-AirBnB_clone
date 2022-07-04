@@ -17,7 +17,7 @@ class HBNBCommand(cmd.Cmd):
         """Quit Command to exit the Console"""
         exit(0)
 
-    def emptyline(self, arg):
+    def emptyline(self):
         """Executes when an empty line is found in the prompt"""
         pass
 
