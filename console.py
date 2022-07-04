@@ -1,34 +1,15 @@
 #!/usr/bin/python3
 """ Main connsole for the system app """
 
-import os
+import cmd
 
-cmd_list = ["help", "quit", "EOF"]
 
-def welcome_menu():
-    """ Displays a Welcome menu for start """
-    print("""+------------------------------------+
-|    Welcome to the HBNB Console!    |
-+------------------------------------+
-    """)
+class HBNBCommand(cmd.Cmd):
+    """ Class initialized as Command Prompt with module 'cmd' """
 
-def help_menu():
-    """ Displays a dictionary of Commands """
-    print("""
-Documented commands (type help <topic>):
-========================================""")
-    print(dict)
+    prompt = "(hbnb) >>> "
 
-welcome_menu()
-
-dict = ["help", "info", "contact"]
-
-while True:
-    cmd = input("(hbnb) >>> ")
-    if cmd == 'help':
-        help_menu()
-    if cmd == 'quit':
-        exit()
 
 if __name__ == '__main__':
+    """ Stops other modules from starting before this main program """
     HBNBCommand().cmdloop()
