@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """Defines all common attributes/methods for other classes"""
+
+
 from uuid import uuid4
 from datetime import datetime
 
