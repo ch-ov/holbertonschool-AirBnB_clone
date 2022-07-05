@@ -1,13 +1,11 @@
 #!/usr/bin/python3
 """Defines all common attributes/methods for other classes"""
-
-
 from uuid import uuid4
 from datetime import datetime
 
 
 class BaseModel:
-    """BaseModel frame"""
+    """BaseModel frame class"""
     def __init__(self, *args, **kwargs):
         """constructor of BaseModel"""
         self.id = str(uuid4())
