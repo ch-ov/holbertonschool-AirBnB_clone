@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 class BaseModel:
-    "BaseModel frame"
+    """BaseModel frame"""
     def __init__(self, *args, **kwargs):
         """constructor of BaseModel"""
         self.id = str(uuid4())
