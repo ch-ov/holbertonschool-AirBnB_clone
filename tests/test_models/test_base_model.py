@@ -12,6 +12,7 @@ class Test_Base_Model(unittest.TestCase):
         """test for method test_not_run"""
         pass
 
+
 my_model = BaseModel()
 my_model.name = "My First Model"
 my_model.my_number = 89
@@ -22,7 +23,8 @@ my_model_json = my_model.to_dict()
 print(my_model_json)
 print("JSON of my_model:")
 for key in my_model_json.keys():
-    print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+    print("\t{}: ({}) - {}".format(
+          key, type(my_model_json[key]), my_model_json[key]))
 
 my_model = BaseModel()
 my_model.name = "My_First_Model"
@@ -35,7 +37,8 @@ my_model_json = my_model.to_dict()
 print(my_model_json)
 print("JSON of my_model:")
 for key in my_model_json.keys():
-    print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+    print("\t{}: ({}) - {}".format(
+          key, type(my_model_json[key]), my_model_json[key]))
 
 print("--")
 my_new_model = BaseModel(**my_model_json)
