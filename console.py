@@ -52,15 +52,15 @@ class HBNBCommand(cmd.Cmd):
                     print("** instance id missing **")
 
                 else:
-                    dict_all_obj = storage.all()
+                    objects = storage.all()
                     flag = None
 
-                    for key in dict_all_obj.keys():
+                    for key in objects.keys():
                         if str(arg[1]) in key:
                             flag = key
 
                     if flag:
-                        print(dict_all_obj[flag])
+                        print(objects[flag])
 
                     else:
                         print("** no instance found **")
@@ -83,29 +83,29 @@ class HBNBCommand(cmd.Cmd):
 
         elif arg[0] in self.classes:
             if len(arg) > 1:
-                dict_all_obj = storage.all()
+                objects = storage.all()
                 flag = None
-                for key in dict_all_obj.keys():
+                for key in objects.keys():
                     if str(arg[1]) in key:
                         flag = key
                 if flag:
-                    del(dict_all_obj[flag])
+                    del(objects[flag])
                     storage.save()
                 else:
                     print("** no instance found **")
 
     def do_all(self, arg):
         """Prints all string representation of all instances"""
-        dict_all_obj = storage.all()
+        objects = storage.all()
         list_obj = []
 
         if len(arg) == 0:
-            for key, vals in dict_all_obj.items():
+            for key, vals in objects.items():
                 list_obj.append(str(vals))
             print(list_obj)
 
         elif arg in self.classes:
-            for keys, vals in dict_all_obj.items():
+            for keys, vals in objects.items():
                 if vals.__class__.__name__ == arg:
                     list_obj.append(str(vals))
             print(list_obj)
