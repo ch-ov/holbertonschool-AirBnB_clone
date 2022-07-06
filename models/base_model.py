@@ -8,10 +8,6 @@ class BaseModel:
     """BaseModel frame class"""
     def __init__(self, *args, **kwargs):
         """constructor of BaseModel"""
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
-
         if kwargs:
             for key, value in kwargs.items():
                 if key in ["created_at", "updated_at"]:
@@ -19,6 +15,10 @@ class BaseModel:
                             datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
                 elif key is not "__class__":
                     setattr(self, key, value)
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """returns name of class, id of instance and dictionay with attr"""
