@@ -4,6 +4,7 @@
 import cmd
 import models
 from models.base_model import BaseModel
+from models import storage
 
 class HBNBCommand(cmd.Cmd):
     """Class initialized as Command Prompt with module 'cmd'"""
@@ -43,24 +44,27 @@ class HBNBCommand(cmd.Cmd):
         """Will show the """
         arg = arg.split()
 
-        if arg[0] == "":
+        if len(arg) == 0:
             print("** class name missing **")
             return
-        try:
-            inst = eval(arg[0])()
-        except:
+
+        elif arg[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
 
-        if len(arg) < 2:
-            print("** instance is missing **")
+        elif len(arg) < 2:
+            print("** instance id missing **")
             return
 
-        dict = storage.all()
-        for key, value in dict.items():
-            if f"{arg[0]}.{arg[1]}" == key:
-                print(dict[key])
-                return
+        else:
+            dict_all_obj = storage.all()
+            string = f'{arg[0]}.{arg[1]}'
+
+            if string not in dict_all_obj.keys():
+                print("** no instance found **")
+
+            else:
+                print(dict_all_obj[string])
 
     def destroy(self, arg):
         """Will delete an instance based on the class 'name' & 'id'"""
