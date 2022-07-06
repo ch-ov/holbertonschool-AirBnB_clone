@@ -9,7 +9,7 @@ class HBNBCommand(cmd.Cmd):
     """Class initialized as Command Prompt with module 'cmd'"""
 
     prompt = "(hbnb) >>> "
-    classes = ['BaseModel']
+    classes = {"BaseModel": BaseModel}
 
     def do_quit(self, arg):
         """Quit Command to exit the Console"""
