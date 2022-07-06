@@ -14,7 +14,7 @@ class BaseModel:
                 if key in ["created_at", "updated_at"]:
                     setattr(self, key,
                             datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
-                elif key not in "__class__":
+                elif key is not "__class__":
                     setattr(self, key, value)
         else:
             self.id = str(uuid4())
