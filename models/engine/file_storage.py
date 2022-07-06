@@ -2,7 +2,6 @@
 """5. Store first object"""
 
 import json
-import models
 from datetime import datetime
 
 
@@ -31,4 +30,10 @@ class FileStorage:
 
     def reload(self):
         """deserializes the JSON file to __objects"""
-        pass
+        try:
+            with open(self.__file_path, 'r') as file:
+                for key, value in (json.load(file)).items():
+                    value = eval(value["__class__"])(**value)
+                    self.__objects[key] = value
+        except Exception:
+            pass
