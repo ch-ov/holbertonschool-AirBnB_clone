@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Defines all common attributes/methods for other classes"""
-import models
+from models import storage
 from uuid import uuid4
 from datetime import datetime
 
@@ -20,6 +20,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.save()
 
     def __str__(self):
         """returns name of class, id of instance and dictionay with attr"""
@@ -28,6 +29,7 @@ class BaseModel:
     def save(self):
         """updates the public attribute updated_at with current datetime"""
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """returns a dictionary with keys/values of __dict__ of the instance"""
