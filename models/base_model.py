@@ -22,6 +22,7 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             models.storage.new(self)
+            models.storage.save()
 
     def __str__(self):
         """returns name of class, id of instance and dictionay with attr"""
@@ -30,7 +31,7 @@ class BaseModel:
     def save(self):
         """updates the public attribute updated_at with current datetime"""
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """returns a dictionary with keys/values of __dict__ of the instance"""
