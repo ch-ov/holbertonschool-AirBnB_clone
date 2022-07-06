@@ -18,7 +18,7 @@ class BaseModel:
                     setattr(self, key,
                             datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
                 elif key in "__class__":
-                    continue
+                    del kwargs["__class__"]
 
     def __str__(self):
         """returns name of class, id of instance and dictionay with attr"""
