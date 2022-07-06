@@ -2,6 +2,7 @@
 """Defines all common attributes/methods for other classes"""
 from uuid import uuid4
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -13,7 +14,7 @@ class BaseModel:
                 if key in ["created_at", "updated_at"]:
                     setattr(self, key,
                             datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
-                elif key is not "__class__":
+                elif key != "__class__":
                     setattr(self, key, value)
         else:
             self.id = str(uuid4())
