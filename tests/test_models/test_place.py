@@ -1,13 +1,13 @@
 #!/usr/bin/python3
-"""test User class"""
+"""test Place class"""
 
 import unittest
 import models
 import datetime
 
 
-class TestUser(unittest.TestCase):
-    """test User class"""
+class TestPlace(unittest.TestCase):
+    """test Place class"""
 
 
 if __name__ == "__main__":
