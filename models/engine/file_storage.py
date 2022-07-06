@@ -1,5 +1,6 @@
 #!/usr/bin/python
 """5. Store first object"""
+
 import json
 import models
 from datetime import datetime
@@ -22,8 +23,8 @@ class FileStorage:
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
         dict = {}
-        for x in self.__objects:
-            dict[x] = self.__objects[x].to_json()
+        for key, value in self.__objects.items():
+            dict[key] = value.to_dict()
 
         with open(self.__file_path, "w") as file:
             json.dump(dict, file)
