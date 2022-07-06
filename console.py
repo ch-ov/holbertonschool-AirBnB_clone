@@ -52,15 +52,15 @@ class HBNBCommand(cmd.Cmd):
                     print("** instance id missing **")
 
                 else:
-                    objects = storage.all()
+                    dict_all_obj = storage.all()
                     flag = None
 
-                    for key in objects.keys():
+                    for key in dict_all_obj.keys():
                         if str(arg[1]) in key:
                             flag = key
 
                     if flag:
-                        print(objects[flag])
+                        print(dict_all_obj[flag])
 
                     else:
                         print("** no instance found **")
@@ -83,13 +83,16 @@ class HBNBCommand(cmd.Cmd):
 
         elif arg[0] in self.classes:
             if len(arg) > 1:
-                key = arg[0] + "." + arg[1]
-                if key in models.storage.all():
-                    del (models.storage.all[key])
-                    models.storage.save()
-
-        else:
-            print("** no instance found **")
+                dict_all_obj = storage.all()
+                flag = None
+                for key in dict_all_obj.keys():
+                    if str(arg[1]) in key:
+                        flag = key
+                if flag:
+                    del(dict_all_obj[flag])
+                    storage.save()
+                else:
+                    print("** no instance found **")
 
     def do_all(self, arg):
         """Prints all string representation of all instances"""
