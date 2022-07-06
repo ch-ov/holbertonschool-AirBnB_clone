@@ -17,8 +17,8 @@ class BaseModel:
                 if key in ["created_at", "updated_at"]:
                     setattr(self, key,
                             datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
-                elif key in "__class__":
-                    del kwargs["__class__"]
+                elif key is not "__class__":
+                    setattr(self, key, value)
 
     def __str__(self):
         """returns name of class, id of instance and dictionay with attr"""
