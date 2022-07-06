@@ -91,26 +91,21 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Prints all string representation of all instances"""
-        arg = arg.split()
+        dict_all_obj = storage.all()
+        list_obj = []
 
         if len(arg) == 0:
-            obj_dict = storage.all()
-            str_list = []
-            for key, value in obj_dict.items():
-                str_list.append(str(value))
-            print(str_list)
-            return
-        try:
-            inst = eval(arg[0])()    
-        except:
-            print("** class doesn't exist **")
-            return
+            for key, vals in dict_all_obj.items():
+                list_obj.append(str(vals))
+            print(list_obj)
 
-        obj_dict = storage.all()
-        str_list = []
-        for key, value in obj_dict.items():
-            if arg[0] in key:
-                str_list.append(str(value))
+        elif arg in HBNBCommand.classes:
+            for keys, vals in dict_all_obj.items():
+                if vals.__class__.__name__ == arg:
+                    list_obj.append(str(vals))
+            print(list_obj)
+        else:
+            print("** class doesn't exist **")
 
     def do_update(self, arg):
         """Prints all string representation of all instances"""
