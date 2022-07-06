@@ -10,7 +10,7 @@ class HBNBCommand(cmd.Cmd):
     """Class initialized as Command Prompt with module 'cmd'"""
 
     prompt = "(hbnb) >>> "
-    classes = {"BaseModel": BaseModel}
+    classes = {"BaseModel": BaseModel,}
 
     def do_quit(self, arg):
         """Quit Command to exit the Console"""
@@ -30,7 +30,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) == 0:
             print("** class name missing **")
 
-        elif arg not in HBNBCommand.classes:
+        elif arg not in self.classes:
             print("** class doesn't exist **")
 
         else:
@@ -39,30 +39,34 @@ class HBNBCommand(cmd.Cmd):
             print(new_inst.id)
 
     def do_show(self, arg):
-        """Will show the """
+        """Prints an instance according to given id"""
         arg = arg.split()
 
         if len(arg) == 0:
             print("** class name missing **")
-            return
-
-        elif arg[0] not in HBNBCommand.classes:
-            print("** class doesn't exist **")
-            return
-
-        elif len(arg) < 2:
-            print("** instance id missing **")
-            return
 
         else:
-            dict_all_obj = storage.all()
-            string = f'{arg[0]}.{arg[1]}'
+            if arg[0] in self.classes.keys():
 
-            if string not in dict_all_obj.keys():
-                print("** no instance found **")
+                if len(arg) == 1:
+                    print("** instance id missing **")
+
+                else:
+                    objects = storage.all()
+                    flag = None
+
+                    for key in objects.keys():
+                        if str(arg[1]) in key:
+                            flag = key
+
+                    if flag:
+                        print(objects[flag])
+
+                    else:
+                        print("** no instance found **")
 
             else:
-                print(dict_all_obj[string])
+                print("** class doesn't exist **")
 
     def destroy(self, arg):
         """Will delete an instance based on the class 'name' & 'id'"""
@@ -72,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        if arg(0) not in classes:
+        if arg(0) not in self.classes:
             print("** class doesn't exits **")
             return
 
@@ -99,7 +103,7 @@ class HBNBCommand(cmd.Cmd):
                 list_obj.append(str(vals))
             print(list_obj)
 
-        elif arg in HBNBCommand.classes:
+        elif arg in self.classes:
             for keys, vals in dict_all_obj.items():
                 if vals.__class__.__name__ == arg:
                     list_obj.append(str(vals))
