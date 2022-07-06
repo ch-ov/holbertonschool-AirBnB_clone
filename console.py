@@ -6,11 +6,11 @@ import models
 from models.base_model import BaseModel
 from models import storage
 
+
 class HBNBCommand(cmd.Cmd):
     """Class initialized as Command Prompt with module 'cmd'"""
-
     prompt = "(hbnb) >>> "
-    classes = {"BaseModel": BaseModel,}
+    classes = {"BaseModel": BaseModel}
 
     def do_quit(self, arg):
         """Quit Command to exit the Console"""
@@ -76,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
 
         elif arg[0] not in self.classes:
-            print("** class doesn't exits **")
+            print("** class doesn't exist **")
 
         elif len(arg) < 2:
             print("** instance is missing **")
@@ -120,7 +120,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         try:
-            inst = eval(arg[0])()    
+            inst = eval(arg[0])()
         except:
             print("** class doesn't exist **")
             return
