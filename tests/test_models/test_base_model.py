@@ -1,5 +1,6 @@
 """test module BaseModel"""
 import unittest
+from models import storage
 from models.base_model import BaseModel
 from datetime import datetime
 
