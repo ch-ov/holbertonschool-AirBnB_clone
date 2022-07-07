@@ -152,14 +152,12 @@ class HBNBCommand(cmd.Cmd):
 
     def do_count(self, arg):
         """Counts the number of objects stored in the .json"""
-        if arg in self.classes:
-            count = 0
-            for key, objs in storage.all().items():
-                if arg in key:
-                    count += 1
-            print(count)
-        else:
-            print("** class doesn't exist **")
+        lists = arg.split()
+        count = 0
+        for classes in models.storage.all().values():
+            if lists[0] == classes.__class__.__name__:
+                count += 1
+        print(count)
 
 
 if __name__ == '__main__':
