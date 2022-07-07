@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """First User class module"""
 from models.base_model import BaseModel
-
+import models
 
 class User(BaseModel):
     """class User that inherits from BaseModel"""
