@@ -150,6 +150,17 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** no instance found **")
 
+    def do_count(self, arg):
+        """Counts the number of objects stored in the .json"""
+        if arg in self.classes:
+            count = 0
+            for key, objs in storage.all().items():
+                if arg in key:
+                    count += 1
+            print(count)
+        else:
+            print("** class doesn't exist **")
+
 
 if __name__ == '__main__':
     """Stops other modules from starting before this main program"""
