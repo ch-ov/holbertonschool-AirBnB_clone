@@ -53,7 +53,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
 
         else:
-            if arg[0] in self.classes.keys():
+            if arg[0] in self.classes:
 
                 if len(arg) == 1:
                     print("** instance id missing **")
@@ -121,42 +121,34 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """Update command to add or update attributes"""
-        arg = arg.split()
+        args = arg.split()
 
-        if len(arg) <= 1:
-            print("** class name missing **")
-            return
-        try:
-            inst = eval(arg[0])()
-        except Exception:
+        if len(args) == 0:
+            print('** class name missing **')
+
+        elif args[0] not in self.classes:
             print("** class doesn't exist **")
-            return
 
-        if len(arg) < 2:
-            print("** instance id missing **")
-            return
+        elif len(args) == 1:
+            print('** instance id missing **')
 
-        if len(arg) < 3:
-            print("** attribute name missing **")
-            return
-
-        if len(arg) < 4:
+        elif len(args) == 3:
             print("** value missing **")
-            return
 
-        if len(arg) > 4:
-            arg = arg[:3]
+        else:
+            obj_name = '{}.{}'.format(args[0], args[1])
+            obj_dict = storage.all()
+            if obj_name in obj_dict.keys():
+                if len(args) == 2:
+                    print("** attribute name missing **")
 
-        dict = storage.all()
-        for key, value in dict.items():
-            if f"{arg[0]}.{arg[1]}" == key:
-                if type(arg[3]) is int:
-                    setattr(value, arg[2], int(arg[3]))
-                elif type(arg[3]) is float:
-                    setattr(value, arg[2], float(arg[3]))
                 else:
-                    setattr(value, arg[2], str(arg[3]))
-        storage.save()
+                    value = args[3].replace('"', '')
+                    object = obj_dict.get(obj_name)
+                    object.__setattr__(args[2], value)
+                    storage.save()
+            else:
+                print("** no instance found **")
 
 
 if __name__ == '__main__':
