@@ -5,12 +5,19 @@ import cmd
 import models
 from models.base_model import BaseModel
 from models import storage
-
+from models.user import User
+from models.state import State
+from models.review import Review
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
 
 class HBNBCommand(cmd.Cmd):
     """Class initialized as Command Prompt with module 'cmd'"""
     prompt = "(hbnb) >>> "
-    classes = {"BaseModel": BaseModel}
+    classes = {'BaseModel': BaseModel, 'User': User, 'State': State,
+                  'City': City, 'Amenity': Amenity, 'Place': Place,
+                  'Review': Review}
 
     def do_quit(self, arg):
         """Quit Command to exit the Console"""
@@ -21,7 +28,7 @@ class HBNBCommand(cmd.Cmd):
         exit(0)
 
     def emptyline(self):
-        """Executes when an empty line is found in the prompt"""
+        """Executes when an empty arg is found in the prompt"""
         pass
 
     def do_create(self, arg):
@@ -113,7 +120,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_update(self, arg):
-        """Prints all string representation of all instances"""
+        """Update command to add or update attributes"""
         arg = arg.split()
 
         if len(arg) <= 1:
@@ -126,11 +133,11 @@ class HBNBCommand(cmd.Cmd):
             return
 
         if len(arg) < 2:
-            print("** instance id is missing **")
+            print("** instance id missing **")
             return
 
         if len(arg) < 3:
-            print("** attribute name is missing **")
+            print("** attribute name missing **")
             return
 
         if len(arg) < 4:
