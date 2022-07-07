@@ -12,12 +12,12 @@ from models.place import Place
 from models.city import City
 from models.amenity import Amenity
 
+
 class HBNBCommand(cmd.Cmd):
     """Class initialized as Command Prompt with module 'cmd'"""
     prompt = "(hbnb) >>> "
-    classes = {'BaseModel': BaseModel, 'User': User, 'State': State,
-                  'City': City, 'Amenity': Amenity, 'Place': Place,
-                  'Review': Review}
+    classes = ["BaseModel", "User", "State",
+               "City", "Amenity", "Place", "Review"]
 
     def do_quit(self, arg):
         """Quit Command to exit the Console"""
@@ -128,7 +128,7 @@ class HBNBCommand(cmd.Cmd):
             return
         try:
             inst = eval(arg[0])()
-        except:
+        except Exception:
             print("** class doesn't exist **")
             return
 
