@@ -4,7 +4,6 @@
 import cmd
 import models
 from models.base_model import BaseModel
-from models import storage
 from models.user import User
 from models.state import State
 from models.review import Review
@@ -16,8 +15,8 @@ from models.amenity import Amenity
 class HBNBCommand(cmd.Cmd):
     """Class initialized as Command Prompt with module 'cmd'"""
     prompt = "(hbnb) >>> "
-    classes = ["BaseModel", "User", "State",
-               "City", "Amenity", "Place", "Review"]
+    classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
+            "Place": Place, "Review": Review, "State": State, "User": User}
 
     def do_quit(self, arg):
         """Quit Command to exit the Console"""
@@ -25,6 +24,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """Quit Command to exit the Console"""
+        print()
         exit(0)
 
     def emptyline(self):
