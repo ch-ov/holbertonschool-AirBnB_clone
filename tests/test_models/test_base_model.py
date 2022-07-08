@@ -12,19 +12,6 @@ class Test_Base_Model(unittest.TestCase):
         """test for method test_not_run"""
         pass
 
-    def test_pep8_conformance_file_storage(self):
-        """
-        Method that tests:
-            if a file meet with pep8 criteria
-        """
-        style = pep8.StyleGuide()
-        check = style.check_files(['models/base_model.py'])
-        self.assertEqual(
-            check.total_errors,
-            0,
-            'PEP8 style errors: %d' % check.total_errors
-        )
-
     def test_doc(self):
         """tests for documentation"""
         self.assertIsNotNone(models.base_model.__doc__)
