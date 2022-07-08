@@ -3,6 +3,7 @@
 import unittest
 import models
 import datetime
+import os
 
 
 class Test_File_Storage(unittest.TestCase):
@@ -11,19 +12,6 @@ class Test_File_Storage(unittest.TestCase):
     def test_not_run(self):
         """test for method test_not_run"""
         pass
-
-    def test_pep8_conformance_file_storage(self):
-        """
-        Method that tests:
-            if a file meet with pep8 criteria
-        """
-        style = pep8.StyleGuide()
-        check = style.check_files(['models/base_model.py'])
-        self.assertEqual(
-            check.total_errors,
-            0,
-            'PEP8 style errors: %d' % check.total_errors
-        )
 
     def test_documentation(self):
         """tests for documentation"""
@@ -48,6 +36,27 @@ class Test_File_Storage(unittest.TestCase):
         self.assertIsNotNone(dictionary)
         self.assertIsInstance(dictionary, dict)
         self.assertIs(dictionary, instance._FileStorage__objects)
+
+    def test_save(self):
+        """test save method"""
+        if os.path.exists("file.json"):
+            os.remove("file.json")
+        self.assertFalse(os.path.exists("file.json"))
+        instance = models.base_model.BaseModel()
+        instance.save()
+        self.assertTrue(os.path.exists("file.json"))
+
+    def test_reload(self):
+        """test reload method"""
+        instance = models.engine.file_storage.FileStorage()
+        dict1 = models.storage.all().copy()
+        models.storage.reload()
+        dict2 = models.storage.all().copy()
+        self.assertEqual(len(dict1), len(dict2))
+        instance.save()
+        self.assertIsInstance(instance._FileStorage__file_path, str)
+        self.assertIsInstance(instance._FileStorage__objects, dict)
+        self.assertTrue(os.path.exists("file.json"))
 
 
 if __name__ == "__main__":

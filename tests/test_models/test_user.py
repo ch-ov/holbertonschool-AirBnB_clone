@@ -13,23 +13,26 @@ class TestUser(unittest.TestCase):
         """test for method test_not_run"""
         pass
 
-    def test_pep8_conformance_file_storage(self):
-        """
-        Method that tests:
-            if a file meet with pep8 criteria
-        """
-        style = pep8.StyleGuide()
-        check = style.check_files(['models/base_model.py'])
-        self.assertEqual(
-            check.total_errors,
-            0,
-            'PEP8 style errors: %d' % check.total_errors
-        )
-
     def test_documentation(self):
         """tests documentation"""
         self.assertIsNotNone(models.user.__doc__)
         self.assertIsNotNone(models.user.User.__doc__)
+
+    def test_class(self):
+        """test instance class"""
+        instance = models.user.User()
+        self.assertIsInstance(instance, models.user.User)
+
+    def test_type(self):
+        """test type of instance atributes"""
+        instance = models.user.User()
+        self.assertIsInstance(instance.id, str)
+        self.assertIsInstance(instance.created_at, datetime.datetime)
+        self.assertIsInstance(instance.updated_at, datetime.datetime)
+        self.assertIsInstance(instance.email, str)
+        self.assertIsInstance(instance.password, str)
+        self.assertIsInstance(instance.first_name, str)
+        self.assertIsInstance(instance.last_name, str)
 
 
 if __name__ == "__main__":
