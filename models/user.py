@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """First User class module"""
-
 from models.base_model import BaseModel
 
 
