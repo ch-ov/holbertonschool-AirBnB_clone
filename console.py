@@ -109,43 +109,42 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """Update command to add or update attributes"""
-        args = arg.split()
+        arg = arg.split()
 
-        if len(args) == 0:
+        if len(arg) == 0:
             print('** class name missing **')
 
-        elif args[0] not in self.classes:
+        elif arg[0] not in self.classes:
             print("** class doesn't exist **")
 
-        elif len(args) == 1:
+        elif len(arg) == 1:
             print('** instance id missing **')
 
-        elif len(args) == 3:
+        elif len(arg) == 3:
             print("** value missing **")
 
         else:
-            obj_name = '{}.{}'.format(args[0], args[1])
+            obj_name = '{}.{}'.format(arg[0], arg[1])
             obj_dict = storage.all()
             if obj_name in obj_dict.keys():
-                if len(args) == 2:
+                if len(arg) == 2:
                     print("** attribute name missing **")
 
                 else:
-                    value = args[3].replace('"', '')
+                    value = arg[3].replace('"', '')
                     object = obj_dict.get(obj_name)
-                    object.__setattr__(args[2], value)
+                    object.__setattr__(arg[2], value)
                     storage.save()
             else:
                 print("** no instance found **")
 
-    def do_count(self, arg):
-        """Counts the number of objects stored in the .json"""
-        lists = arg.split()
-        count = 0
-        for classes in models.storage.all().values():
-            if lists[0] == classes.__class__.__name__:
-                count += 1
-        print(count)
+    def default(self, arg):
+        """Runs when no function are found"""
+        arg = arg.split(".")
+        if arg[0] in self.classes and arg[1] == "all()":
+            self.do_all(self, arg[0])
+        elif arg[0] in self.classes and arg[1] == "count()":
+            self.do_count(self, arg[0])
 
 
 if __name__ == '__main__':
