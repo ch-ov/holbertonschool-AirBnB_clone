@@ -142,9 +142,9 @@ class HBNBCommand(cmd.Cmd):
         """Runs when no function are found"""
         arg = arg.split(".")
         if arg[0] in self.classes and arg[1] == "all()":
-            self.do_all(self, arg[0])
+            HBNBCommand.do_all(self, arg[0])
         elif arg[0] in self.classes and arg[1] == "count()":
-            self.do_count(self, arg[0])
+            HBNBCommand.do_count(self, arg[0])
 
 
 if __name__ == '__main__':
