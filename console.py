@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Main connsole for the system app"""
 
-import cmd
+import arg
 import models
 from models import storage
 from models.base_model import BaseModel
@@ -13,8 +13,8 @@ from models.city import City
 from models.amenity import Amenity
 
 
-class HBNBCommand(cmd.Cmd):
-    """Class initialized as Command Prompt with module 'cmd'"""
+class HBNBCommand(arg.Cmd):
+    """Class initialized as Command Prompt with module 'arg'"""
     prompt = "(hbnb) >>> "
     classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
             "Place": Place, "Review": Review, "State": State, "User": User}
@@ -55,28 +55,18 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) == 0:
             print("** class name missing **")
 
+        elif arg[0] not in self.classes:
+            print("** class doesn't exist **")
+
+        elif len(arg) < 2:
+            print("** instance id missing **")
+
         else:
-            if arg[0] in self.classes:
-
-                if len(arg) == 1:
-                    print("** instance id missing **")
-
-                else:
-                    objects = storage.all()
-                    flag = None
-
-                    for key in objects.keys():
-                        if str(arg[1]) in key:
-                            flag = key
-
-                    if flag:
-                        print(objects[flag])
-
-                    else:
-                        print("** no instance found **")
-
+            inst = arg[0] + "." + arg[1]
+            if str(inst) in models.storage.all():
+                print(models.storage.all()[inst])
             else:
-                print("** class doesn't exist **")
+                print("** no instance found **")
 
     def do_destroy(self, arg):
         """Will delete an instance based on the class 'name' & 'id'"""
