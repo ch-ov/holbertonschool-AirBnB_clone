@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Main connsole for the system app"""
 
-import arg
+import cmd
 import models
 from models import storage
 from models.base_model import BaseModel
@@ -13,8 +13,8 @@ from models.city import City
 from models.amenity import Amenity
 
 
-class HBNBCommand(arg.Cmd):
-    """Class initialized as Command Prompt with module 'arg'"""
+class HBNBCommand(cmd.Cmd):
+    """Class initialized as Command Prompt with module 'cmd'"""
     prompt = "(hbnb) >>> "
     classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
             "Place": Place, "Review": Review, "State": State, "User": User}
@@ -79,20 +79,15 @@ class HBNBCommand(arg.Cmd):
             print("** class doesn't exist **")
 
         elif len(arg) < 2:
-            print("** instance is missing **")
+            print("** instance id missing **")
 
-        elif arg[0] in self.classes:
-            if len(arg) > 1:
-                objects = storage.all()
-                flag = None
-                for key in objects.keys():
-                    if str(arg[1]) in key:
-                        flag = key
-                if flag:
-                    del(objects[flag])
-                    storage.save()
-                else:
-                    print("** no instance found **")
+        else:
+            inst = arg[0] + "." + arg[1]
+            if str(inst) in models.storage.all():
+                models.storage.all().pop(inst)
+                models.storage.save()
+            else:
+                print("** no instance found **")
 
     def do_all(self, arg):
         """Prints all string representation of all instances"""
