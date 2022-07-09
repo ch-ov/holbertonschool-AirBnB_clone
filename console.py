@@ -155,6 +155,7 @@ class HBNBCommand(cmd.Cmd):
                 count += 1
         print(count)
 
+
 if __name__ == '__main__':
     """Stops other modules from starting before this main program"""
     HBNBCommand().cmdloop()
