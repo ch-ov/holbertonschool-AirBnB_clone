@@ -3,6 +3,7 @@
 
 import cmd
 import models
+from models import storage
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -41,9 +42,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
         else:
-            new_inst = eval(arg)()
-            new_inst.save()
-            print(new_inst.id)
+            for key, clas in self.classes.items():
+                if arg == key:
+                    obj = clas()
+                    obj.save()
+                    print(obj.id)
 
     def do_show(self, arg):
         """Prints an instance according to given id"""
