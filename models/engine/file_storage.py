@@ -1,6 +1,6 @@
 #!/usr/bin/python
 """5. Store first object"""
-import models
+
 import json
 from datetime import datetime
 from models.base_model import BaseModel
@@ -41,5 +41,5 @@ class FileStorage:
                 for key, value in ((json.load(file)).items()):
                     value = eval(value["__class__"])(**value)
                 self.__objects[key] = value
-        except Exception:
+        except FileNotFoundError:
             pass
