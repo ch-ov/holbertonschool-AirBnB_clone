@@ -6,7 +6,7 @@ from uuid import uuid4
 from datetime import datetime
 
 
-class BaseModel:
+class BaseModel():
     """BaseModel frame class"""
     def __init__(self, *args, **kwargs):
         """constructor of BaseModel"""
@@ -34,9 +34,9 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-        """returns a dictionary with keys/values of __dict__ of the instance"""
-        dictionary = dict(self.__dict__)
-        dictionary.update({"__class__": self.__class__.__name__,
-                           "created_at": str(((self.created_at).isoformat())),
-                           "updated_at": str(((self.updated_at).isoformat()))})
-        return dictionary
+        """ to dict """
+        new_dict = dict(self.__dict__)
+        new_dict["__class__"] = self.__class__.__name__
+        new_dict["created_at"] = self.created_at.isoformat()
+        new_dict["updated_at"] = self.updated_at.isoformat()
+        return new_dict
